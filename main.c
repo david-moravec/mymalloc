@@ -77,11 +77,11 @@ void* mymalloc(size_t size) {
   } 
 
   printf("b:    %p\n", b);
-  printf("size: %llu\n", b->size);
-  printf("next: %p\n", &b->next);
-  printf("free: %p\n", &b->free);
-  printf("data: %p\n", b->data);
-  printf("sizeof: %llu\n", sizeof(struct s_block));
+  // printf("size: %llu\n", b->size);
+  // printf("next: %p\n", &b->next);
+  // printf("free: %p\n", &b->free);
+  // printf("data: %p\n", b->data);
+  // printf("sizeof: %llu\n", sizeof(struct s_block));
   return b->data;
 }
 
@@ -93,13 +93,20 @@ struct test {
 };
 
 int main() {
-  char* test1 = (char*)mymalloc(4*sizeof(struct s_block));
-  printf("%p\n", (void*)test1);
-  test1 = test1 - 20;
-  printf("%p\n", (void*)test1);
-  t_block test_t_block = (t_block)test1;
-  printf("size: %llu\n", test_t_block->size);
+  int* test1 = (int*)mymalloc(96 * sizeof(int));
+  // printf("%p\n", (void*)test1);
+  // printf("%p\n", (void*)test1);
+  // printf("size: %llu\n", test_t_block->size);
   // printf("%i\n", p->free);
   // printf("%i\n", p->next == NULL);
+
+  int* test2 = (int*)mymalloc(24 * sizeof(int));
+  test2[0] = 4;
+
+  char* p = (char*)test1;
+  t_block a = (t_block)(p - 20);
+
+  printf("%p\n", a);
+  printf("%p\n", a->next);
   return 0;
 }
